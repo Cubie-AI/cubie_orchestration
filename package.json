@@ -1,0 +1,35 @@
+{
+  "name": "maiar-agent-runner",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "prestart": "tsc --project tsconfig.json",
+    "start": "node dist/app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@maiar-ai/core": "^0.4.0",
+    "@maiar-ai/memory-sqlite": "^0.4.0",
+    "@maiar-ai/model-openai": "^0.4.0",
+    "@maiar-ai/plugin-character": "^0.4.0",
+    "@maiar-ai/plugin-express": "^0.4.0",
+    "@maiar-ai/plugin-telegram": "^0.4.0",
+    "@maiar-ai/plugin-text": "^0.4.0",
+    "@tsconfig/node22": "^22.0.0",
+    "agent-twitter-client": "^0.0.18",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mariadb": "^3.4.0",
+    "sequelize": "^6.37.5",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.13.4",
+    "typescript": "^5.7.3"
+  }
+}
