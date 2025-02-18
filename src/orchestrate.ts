@@ -122,14 +122,14 @@ export async function startAgent(agentId: number) {
 
     if (agent.tw_email && agent.tw_password && agent.tw_handle) {
       plugins.push(
+        new PluginXPost({
+          intervalMinutes: 60,
+          intervalRandomizationMinutes: 30,
+        }),
         new PluginX({
           email: agent.tw_email,
           password: agent.tw_password,
           username: agent.tw_handle,
-        }),
-        new PluginXPost({
-          intervalMinutes: 60,
-          intervalRandomizationMinutes: 30,
         })
       );
     }
