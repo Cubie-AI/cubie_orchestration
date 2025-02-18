@@ -112,8 +112,6 @@ export async function startAgent(agentId: number) {
       return false;
     }
 
-    console.log("Starting agent", agent);
-
     const plugins = [
       new PluginTextGeneration(),
       new PluginCharacter({
