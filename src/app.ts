@@ -45,7 +45,7 @@ app.get("/clear", (_req, res) => {
   res.send("Errors cleared");
 });
 
-app.use((err: Error, req: Request, _res: Response, _next: NextFunction) => {
+app.use((err: Error, req: Request, res: Response, _next: NextFunction) => {
   if (err instanceof Error) {
     errorInstance.addError(err.message);
   }
