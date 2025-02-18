@@ -13,11 +13,11 @@ import { OpenAIProvider } from "@maiar-ai/model-openai";
 import { PluginCharacter } from "@maiar-ai/plugin-character";
 import { PluginTelegram } from "@maiar-ai/plugin-telegram";
 import { PluginTextGeneration } from "@maiar-ai/plugin-text";
+import { PluginX } from "@maiar-ai/plugin-x";
 import { Op } from "sequelize";
 import { Agent, AgentInfo } from "./db/models.js";
 import { AgentInfoType } from "./db/models/agentInfo.js";
 import { getAgentById } from "./db/repositories.js";
-import { PluginXInternal } from "./plugin-x/plugin.js";
 import { PluginXPost } from "./postTweetScheduler.js";
 
 const logger = createLogger("agent:orchestrate");
@@ -129,7 +129,7 @@ export async function startAgent(agentId: number) {
 
     if (agent.tw_handle && agent.tw_password && agent.tw_email) {
       plugins.push(
-        new PluginXInternal({
+        new PluginX({
           username: agent.tw_handle,
           password: agent.tw_password,
           email: agent.tw_email,
