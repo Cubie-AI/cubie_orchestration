@@ -11,7 +11,6 @@ import path from "path";
 import { SQLiteProvider } from "@maiar-ai/memory-sqlite";
 import { OpenAIProvider } from "@maiar-ai/model-openai";
 import { PluginCharacter } from "@maiar-ai/plugin-character";
-import { PluginTelegram } from "@maiar-ai/plugin-telegram";
 import { PluginTextGeneration } from "@maiar-ai/plugin-text";
 import { PluginX } from "@maiar-ai/plugin-x";
 import { Op } from "sequelize";
@@ -118,28 +117,16 @@ export async function startAgent(agentId: number) {
       new PluginCharacter({
         character: makeCharacter(agent),
       }),
+      new PluginX({
+        username: agent.tw_handle,
+        password: agent.tw_password,
+        email: agent.tw_email,
+      }),
+      new PluginXPost({
+        intervalMinutes: 60,
+        intervalRandomizationMinutes: 10,
+      }),
     ];
-    if (agent.telegram_bot_token) {
-      plugins.push(
-        new PluginTelegram({
-          token: agent.telegram_bot_token,
-        })
-      );
-    }
-
-    if (agent.tw_handle && agent.tw_password && agent.tw_email) {
-      plugins.push(
-        new PluginX({
-          username: agent.tw_handle,
-          password: agent.tw_password,
-          email: agent.tw_email,
-        }),
-        new PluginXPost({
-          intervalMinutes: 30,
-          intervalRandomizationMinutes: 15,
-        })
-      );
-    }
 
     // Create and start the agent
     const runtime = createRuntime({

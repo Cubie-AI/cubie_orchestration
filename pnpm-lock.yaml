@@ -16,7 +16,7 @@ importers:
         version: 0.4.0(ws@8.18.0)
       '@maiar-ai/model-openai':
         specifier: ^0.4.0
-        version: 0.4.0(ws@8.18.0)(zod@3.24.2)
+        version: 0.4.0(ws@8.18.0)(zod@3.24.1)
       '@maiar-ai/plugin-character':
         specifier: ^0.4.0
         version: 0.4.0(ws@8.18.0)
@@ -32,9 +32,9 @@ importers:
       '@maiar-ai/plugin-x':
         specifier: ^0.5.0
         version: 0.5.0(ws@8.18.0)
-      agent-twitter-client:
-        specifier: ^0.0.18
-        version: 0.0.18
+      '@tsconfig/node22':
+        specifier: ^22.0.0
+        version: 22.0.0
       dotenv:
         specifier: ^16.4.7
         version: 16.4.7
@@ -47,9 +47,6 @@ importers:
       sequelize:
         specifier: ^6.37.5
         version: 6.37.5(mariadb@3.4.0)
-      zod:
-        specifier: ^3.24.2
-        version: 3.24.2
     devDependencies:
       '@types/express':
         specifier: ^5.0.0
@@ -127,6 +124,9 @@ packages:
 
   '@telegraf/types@7.1.0':
     resolution: {integrity: sha512-kGevOIbpMcIlCDeorKGpwZmdH7kHbqlk/Yj6dEpJMKEQw5lk0KVQY0OLXaCswy8GqlIVLd5625OB+rAntP9xVw==}
+
+  '@tsconfig/node22@22.0.0':
+    resolution: {integrity: sha512-twLQ77zevtxobBOD4ToAtVmuYrpeYUh3qh+TEp+08IWhpsrIflVHqQ1F1CiPxQGL7doCdBIOOCF+1Tm833faNg==}
 
   '@types/body-parser@1.19.5':
     resolution: {integrity: sha512-fB3Zu92ucau0iQ0JMCFQE7b/dv8Ot07NI3KaZIkIUNXq82k4eBAqUaneXfleGY9JWskeS9y+u0nXMyspcuQrCg==}
@@ -991,9 +991,6 @@ packages:
   zod@3.24.1:
     resolution: {integrity: sha512-muH7gBL9sI1nciMZV67X5fTKKBLtwpZ5VBp1vsOQzj1MhrBZ4wlVCm3gedKZWLp0Oyel8sIGfeiz54Su+OVT+A==}
 
-  zod@3.24.2:
-    resolution: {integrity: sha512-lY7CDW43ECgW9u1TcT3IoXHflywfVqDYze4waEz812jR/bZ8FHDsl7pFQoSZTz5N+2NqRXs8GBwnAwo3ZNxqhQ==}
-
 snapshots:
 
   '@maiar-ai/core@0.4.0(ws@8.18.0)':
@@ -1026,10 +1023,10 @@ snapshots:
       - encoding
       - ws
 
-  '@maiar-ai/model-openai@0.4.0(ws@8.18.0)(zod@3.24.2)':
+  '@maiar-ai/model-openai@0.4.0(ws@8.18.0)(zod@3.24.1)':
     dependencies:
       '@maiar-ai/core': 0.4.0(ws@8.18.0)
-      openai: 4.82.0(ws@8.18.0)(zod@3.24.2)
+      openai: 4.82.0(ws@8.18.0)(zod@3.24.1)
     transitivePeerDependencies:
       - encoding
       - ws
@@ -1111,6 +1108,8 @@ snapshots:
   '@sinclair/typebox@0.32.35': {}
 
   '@telegraf/types@7.1.0': {}
+
+  '@tsconfig/node22@22.0.0': {}
 
   '@types/body-parser@1.19.5':
     dependencies:
@@ -1647,21 +1646,6 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  openai@4.82.0(ws@8.18.0)(zod@3.24.2):
-    dependencies:
-      '@types/node': 18.19.76
-      '@types/node-fetch': 2.6.12
-      abort-controller: 3.0.0
-      agentkeepalive: 4.6.0
-      form-data-encoder: 1.7.2
-      formdata-node: 4.4.1
-      node-fetch: 2.7.0
-    optionalDependencies:
-      ws: 8.18.0
-      zod: 3.24.2
-    transitivePeerDependencies:
-      - encoding
-
   otpauth@9.3.6:
     dependencies:
       '@noble/hashes': 1.6.1
@@ -2025,5 +2009,3 @@ snapshots:
   ws@8.18.0: {}
 
   zod@3.24.1: {}
-
-  zod@3.24.2: {}

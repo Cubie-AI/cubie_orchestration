@@ -1,10 +1,15 @@
 import express, { NextFunction, Request, Response } from "express";
 import { errorInstance } from "./error.js";
-import { runningAgents, startAgent, updateAgent } from "./orchestrate.js";
+import {
+  agentLoader,
+  runningAgents,
+  startAgent,
+  updateAgent,
+} from "./orchestrate.js";
 
 const app = express();
 
-// await agentLoader();
+await agentLoader();
 
 app.use(express.json());
 

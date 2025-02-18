@@ -1,12 +1,12 @@
-import { createLogger } from "@maiar-ai/core";
-
 interface IError {
   message: string;
   timestamp: number;
 }
 
-const logger = createLogger("error:memory");
-
+const logger = {
+  info: console.log,
+  error: console.error,
+};
 class ErrorStorage {
   errors: IError[] = [];
 
