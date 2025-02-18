@@ -3,7 +3,7 @@ import "dotenv/config";
 // Suppress deprecation warnings
 process.removeAllListeners("warning");
 
-import { createLogger, createRuntime } from "@maiar-ai/core";
+import { createLogger, createRuntime, Plugin } from "@maiar-ai/core";
 
 import path from "path";
 
@@ -11,6 +11,7 @@ import path from "path";
 import { SQLiteProvider } from "@maiar-ai/memory-sqlite";
 import { OpenAIProvider } from "@maiar-ai/model-openai";
 import { PluginCharacter } from "@maiar-ai/plugin-character";
+import { PluginTelegram } from "@maiar-ai/plugin-telegram";
 import { PluginTextGeneration } from "@maiar-ai/plugin-text";
 import { PluginX } from "@maiar-ai/plugin-x";
 import { Op } from "sequelize";
@@ -112,21 +113,34 @@ export async function startAgent(agentId: number) {
       return false;
     }
 
-    const plugins = [
+    const plugins: Plugin[] = [
       new PluginTextGeneration(),
       new PluginCharacter({
         character: makeCharacter(agent),
       }),
-      new PluginX({
-        username: agent.tw_handle,
-        password: agent.tw_password,
-        email: agent.tw_email,
-      }),
-      new PluginXPost({
-        intervalMinutes: 60,
-        intervalRandomizationMinutes: 10,
-      }),
     ];
+
+    if (agent.tw_email && agent.tw_password && agent.tw_handle) {
+      plugins.push(
+        new PluginX({
+          email: agent.tw_email,
+          password: agent.tw_password,
+          username: agent.tw_handle,
+        }),
+        new PluginXPost({
+          intervalMinutes: 60,
+          intervalRandomizationMinutes: 30,
+        })
+      );
+    }
+
+    if (agent.telegram && agent.telegram_bot_token) {
+      plugins.push(
+        new PluginTelegram({
+          token: agent.telegram_bot_token,
+        })
+      );
+    }
 
     // Create and start the agent
     const runtime = createRuntime({
@@ -144,7 +158,10 @@ export async function startAgent(agentId: number) {
       plugins: plugins,
     });
 
-    await runtime.start();
+    await runtime.start().catch((error) => {
+      console.error("Failed to start agent:", error);
+      throw error;
+    });
 
     runningAgents.set(agentId.toString(), runtime);
     result = true;

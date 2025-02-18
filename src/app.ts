@@ -30,6 +30,8 @@ app.post("/", async (req, res, next) => {
       return next(new Error("Failed to update agent with id " + agentId));
     }
   }
+
+  res.status(200).json({ success: true });
 });
 
 app.get("/heathcheck", (_req, res) => {
@@ -47,6 +49,8 @@ app.use((err: Error, req: Request, _res: Response, _next: NextFunction) => {
   if (err instanceof Error) {
     errorInstance.addError(err.message);
   }
+
+  res.status(500).json({ error: err.message });
 });
 
 app.listen(8081, () => {
