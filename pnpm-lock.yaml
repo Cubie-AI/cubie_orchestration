@@ -29,9 +29,9 @@ importers:
       '@maiar-ai/plugin-text':
         specifier: ^0.4.0
         version: 0.4.0(ws@8.18.0)
-      '@tsconfig/node22':
-        specifier: ^22.0.0
-        version: 22.0.0
+      '@maiar-ai/plugin-x':
+        specifier: ^0.5.0
+        version: 0.5.0(ws@8.18.0)
       agent-twitter-client:
         specifier: ^0.0.18
         version: 0.0.18
@@ -66,6 +66,9 @@ packages:
   '@maiar-ai/core@0.4.0':
     resolution: {integrity: sha512-IO2pQgxHE0vmeKnoWkvtmgQvIB4c7NnmsgfeN2gW7nTOyN5coLheiV3kwNTvyKQELozl63XZ/x4zPKa0qLmr+g==}
 
+  '@maiar-ai/core@0.5.0':
+    resolution: {integrity: sha512-FP5YHumJ/39FShG6i7f1agH15wYn+95CcjGN8xVfV2toN+GF+FoiLkbUC2E8aZUjdoTTYDnxfJgX18Vq8eYo7A==}
+
   '@maiar-ai/memory-sqlite@0.4.0':
     resolution: {integrity: sha512-JUXfZUkBIxOo765sCiGvOa0Fy+caofqy/g+/Zw+Xv0kPL6vJN2LvY+Gr6kPtx837A/6GCQ67KNPDPw5T53F1yg==}
 
@@ -83,6 +86,9 @@ packages:
 
   '@maiar-ai/plugin-text@0.4.0':
     resolution: {integrity: sha512-ddu4n0NRHmkko8jtjbGWI92ibFSG4eSrHtm/ZGA0KeFrNZsStoPV3gzdzvOiwb8ZNGDHaMaug4nbVfBKIGPxiA==}
+
+  '@maiar-ai/plugin-x@0.5.0':
+    resolution: {integrity: sha512-nbrQ23Km2DtLoNyvmqCXI44tfoVxo6mBwXlYRgFgQbCtdcj6vPWbNmTwn5oNFCUCO6EuOSeMolC/IcFFkqwgQQ==}
 
   '@noble/hashes@1.6.1':
     resolution: {integrity: sha512-pq5D8h10hHBjyqX+cfBm0i8JUXJ0UhczFc4r74zbuT9XgewFo2E3J1cOaGtdZynILNmQ685YWGzGE1Zv6io50w==}
@@ -121,9 +127,6 @@ packages:
 
   '@telegraf/types@7.1.0':
     resolution: {integrity: sha512-kGevOIbpMcIlCDeorKGpwZmdH7kHbqlk/Yj6dEpJMKEQw5lk0KVQY0OLXaCswy8GqlIVLd5625OB+rAntP9xVw==}
-
-  '@tsconfig/node22@22.0.0':
-    resolution: {integrity: sha512-twLQ77zevtxobBOD4ToAtVmuYrpeYUh3qh+TEp+08IWhpsrIflVHqQ1F1CiPxQGL7doCdBIOOCF+1Tm833faNg==}
 
   '@types/body-parser@1.19.5':
     resolution: {integrity: sha512-fB3Zu92ucau0iQ0JMCFQE7b/dv8Ot07NI3KaZIkIUNXq82k4eBAqUaneXfleGY9JWskeS9y+u0nXMyspcuQrCg==}
@@ -1004,6 +1007,17 @@ snapshots:
       - encoding
       - ws
 
+  '@maiar-ai/core@0.5.0(ws@8.18.0)':
+    dependencies:
+      openai: 4.82.0(ws@8.18.0)(zod@3.24.1)
+      pino: 9.6.0
+      pino-pretty: 13.0.0
+      rxjs: 7.8.1
+      zod: 3.24.1
+    transitivePeerDependencies:
+      - encoding
+      - ws
+
   '@maiar-ai/memory-sqlite@0.4.0(ws@8.18.0)':
     dependencies:
       '@maiar-ai/core': 0.4.0(ws@8.18.0)
@@ -1057,6 +1071,17 @@ snapshots:
       - encoding
       - ws
 
+  '@maiar-ai/plugin-x@0.5.0(ws@8.18.0)':
+    dependencies:
+      '@maiar-ai/core': 0.5.0(ws@8.18.0)
+      agent-twitter-client: 0.0.18
+      zod: 3.24.1
+    transitivePeerDependencies:
+      - bufferutil
+      - encoding
+      - utf-8-validate
+      - ws
+
   '@noble/hashes@1.6.1': {}
 
   '@roamhq/wrtc-darwin-arm64@0.8.0':
@@ -1086,8 +1111,6 @@ snapshots:
   '@sinclair/typebox@0.32.35': {}
 
   '@telegraf/types@7.1.0': {}
-
-  '@tsconfig/node22@22.0.0': {}
 
   '@types/body-parser@1.19.5':
     dependencies:

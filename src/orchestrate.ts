@@ -101,6 +101,7 @@ export async function updateAgent(agentId: number) {
     console.error("Failed to update agent:", error);
   }
 }
+
 export async function startAgent(agentId: number) {
   let result = false;
   try {

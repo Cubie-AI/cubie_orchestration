@@ -278,6 +278,7 @@ export class PluginXInternal extends PluginBase {
       const tweetsArray: Tweet[] = [];
       try {
         for await (const tweet of tweetsGenerator) {
+          log.info(`Received tweet: ${JSON.stringify(tweet)}`);
           if (!tweet.id || !tweet.username) {
             log.warn("Received invalid tweet:", tweet);
             continue;
@@ -289,11 +290,12 @@ export class PluginXInternal extends PluginBase {
             tweet.username
           );
 
+          log.info(`Checking tweet ${tweet.id} from @${tweet.username}`);
+
           if (
-            tweet.username === this.config.username ||
-            tweet.username === `@${this.config.username}`
+            tweet.username.toLowerCase() === this.config.username.toLowerCase()
           ) {
-            log.warn("Ignoring own tweet");
+            log.info("Ignoring own tweet");
             continue;
           }
           if (!hasResponded) {
