@@ -1,8 +1,11 @@
 {
-  "extends": "@tsconfig/node22/tsconfig.json",
   "exclude": ["node_modules"],
   "include": ["src/**/*"],
   "compilerOptions": {
-    "outDir": "./dist"
+    "skipLibCheck": true,
+    "outDir": "./dist",
+    "target": "ESNext",
+    "moduleResolution": "nodenext",
+    "module": "NodeNext"
   }
 }

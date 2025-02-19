@@ -16,7 +16,7 @@ importers:
         version: 0.4.0(ws@8.18.0)
       '@maiar-ai/model-openai':
         specifier: ^0.4.0
-        version: 0.4.0(ws@8.18.0)(zod@3.24.1)
+        version: 0.4.0(ws@8.18.0)(zod@3.24.2)
       '@maiar-ai/plugin-character':
         specifier: ^0.4.0
         version: 0.4.0(ws@8.18.0)
@@ -44,9 +44,15 @@ importers:
       mariadb:
         specifier: ^3.4.0
         version: 3.4.0
+      node-fetch:
+        specifier: ^3.3.2
+        version: 3.3.2
       sequelize:
         specifier: ^6.37.5
         version: 6.37.5(mariadb@3.4.0)
+      zod:
+        specifier: ^3.24.2
+        version: 3.24.2
     devDependencies:
       '@types/express':
         specifier: ^5.0.0
@@ -991,6 +997,9 @@ packages:
   zod@3.24.1:
     resolution: {integrity: sha512-muH7gBL9sI1nciMZV67X5fTKKBLtwpZ5VBp1vsOQzj1MhrBZ4wlVCm3gedKZWLp0Oyel8sIGfeiz54Su+OVT+A==}
 
+  zod@3.24.2:
+    resolution: {integrity: sha512-lY7CDW43ECgW9u1TcT3IoXHflywfVqDYze4waEz812jR/bZ8FHDsl7pFQoSZTz5N+2NqRXs8GBwnAwo3ZNxqhQ==}
+
 snapshots:
 
   '@maiar-ai/core@0.4.0(ws@8.18.0)':
@@ -1023,10 +1032,10 @@ snapshots:
       - encoding
       - ws
 
-  '@maiar-ai/model-openai@0.4.0(ws@8.18.0)(zod@3.24.1)':
+  '@maiar-ai/model-openai@0.4.0(ws@8.18.0)(zod@3.24.2)':
     dependencies:
       '@maiar-ai/core': 0.4.0(ws@8.18.0)
-      openai: 4.82.0(ws@8.18.0)(zod@3.24.1)
+      openai: 4.82.0(ws@8.18.0)(zod@3.24.2)
     transitivePeerDependencies:
       - encoding
       - ws
@@ -1646,6 +1655,21 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
+  openai@4.82.0(ws@8.18.0)(zod@3.24.2):
+    dependencies:
+      '@types/node': 18.19.76
+      '@types/node-fetch': 2.6.12
+      abort-controller: 3.0.0
+      agentkeepalive: 4.6.0
+      form-data-encoder: 1.7.2
+      formdata-node: 4.4.1
+      node-fetch: 2.7.0
+    optionalDependencies:
+      ws: 8.18.0
+      zod: 3.24.2
+    transitivePeerDependencies:
+      - encoding
+
   otpauth@9.3.6:
     dependencies:
       '@noble/hashes': 1.6.1
@@ -2009,3 +2033,5 @@ snapshots:
   ws@8.18.0: {}
 
   zod@3.24.1: {}
+
+  zod@3.24.2: {}
