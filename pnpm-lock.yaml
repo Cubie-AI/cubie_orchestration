@@ -30,8 +30,8 @@ importers:
         specifier: ^0.4.0
         version: 0.4.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       '@maiar-ai/plugin-x':
-        specifier: ^0.5.0
-        version: 0.5.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+        specifier: ^0.7.0
+        version: 0.7.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       '@solana/spl-token':
         specifier: ^0.4.12
         version: 0.4.12(@solana/web3.js@1.98.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(bufferutil@4.0.9)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.3)(utf-8-validate@5.0.10)
@@ -79,8 +79,8 @@ packages:
   '@maiar-ai/core@0.4.0':
     resolution: {integrity: sha512-IO2pQgxHE0vmeKnoWkvtmgQvIB4c7NnmsgfeN2gW7nTOyN5coLheiV3kwNTvyKQELozl63XZ/x4zPKa0qLmr+g==}
 
-  '@maiar-ai/core@0.5.0':
-    resolution: {integrity: sha512-FP5YHumJ/39FShG6i7f1agH15wYn+95CcjGN8xVfV2toN+GF+FoiLkbUC2E8aZUjdoTTYDnxfJgX18Vq8eYo7A==}
+  '@maiar-ai/core@0.7.0':
+    resolution: {integrity: sha512-u7MIv4KMy3yNzSPx0VqhcrQWNo2XeAhHNnfsNTKURmQ5fzHOg2xJ8a7+GVJnX9ZzvkX6jTBD8qlOtSYUkiBxBw==}
 
   '@maiar-ai/memory-sqlite@0.4.0':
     resolution: {integrity: sha512-JUXfZUkBIxOo765sCiGvOa0Fy+caofqy/g+/Zw+Xv0kPL6vJN2LvY+Gr6kPtx837A/6GCQ67KNPDPw5T53F1yg==}
@@ -100,8 +100,8 @@ packages:
   '@maiar-ai/plugin-text@0.4.0':
     resolution: {integrity: sha512-ddu4n0NRHmkko8jtjbGWI92ibFSG4eSrHtm/ZGA0KeFrNZsStoPV3gzdzvOiwb8ZNGDHaMaug4nbVfBKIGPxiA==}
 
-  '@maiar-ai/plugin-x@0.5.0':
-    resolution: {integrity: sha512-nbrQ23Km2DtLoNyvmqCXI44tfoVxo6mBwXlYRgFgQbCtdcj6vPWbNmTwn5oNFCUCO6EuOSeMolC/IcFFkqwgQQ==}
+  '@maiar-ai/plugin-x@0.7.0':
+    resolution: {integrity: sha512-fsvlPBZuwmBDX5b18STMl2r7bf1LaLm9xeE908eZIYlioPV6McQWA0Q70GbGjq66JXgMa/ORtIAN65BrR2jeGg==}
 
   '@noble/curves@1.8.1':
     resolution: {integrity: sha512-warwspo+UYUPep0Q+vtdVB4Ugn8GGQj8iyB3gnRWsztmUHTI3S1nhdiWNsPUGL0vud7JlRRk1XEu7Lq1KGTnMQ==}
@@ -1233,7 +1233,7 @@ snapshots:
       - encoding
       - ws
 
-  '@maiar-ai/core@0.5.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))':
+  '@maiar-ai/core@0.7.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))':
     dependencies:
       openai: 4.82.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.24.1)
       pino: 9.6.0
@@ -1297,9 +1297,9 @@ snapshots:
       - encoding
       - ws
 
-  '@maiar-ai/plugin-x@0.5.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))':
+  '@maiar-ai/plugin-x@0.7.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))':
     dependencies:
-      '@maiar-ai/core': 0.5.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+      '@maiar-ai/core': 0.7.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       agent-twitter-client: 0.0.18(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       zod: 3.24.1
     transitivePeerDependencies:

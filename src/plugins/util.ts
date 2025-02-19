@@ -102,6 +102,7 @@ export async function constructAgentPlugins(agent: Agent) {
         email: agent.tw_email,
         password: agent.tw_password,
         username: agent.tw_handle,
+        mentionsCheckIntervalMins: 1,
       })
     );
   }

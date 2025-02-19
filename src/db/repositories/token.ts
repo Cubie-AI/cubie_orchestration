@@ -3,12 +3,12 @@ import { Op } from "sequelize";
 
 export async function getTokensByAddressOrTicker(tickerOrCa: string) {
   try {
-    const symbol = `^\\$${tickerOrCa.replace("$", "")}$`;
+    const symbol = `${tickerOrCa.replace("$", "")}`;
     console.log(`Getting token details for ${symbol}`);
 
     return await Token.findAll({
       where: {
-        [Op.or]: [{ symbol: { [Op.regexp]: symbol } }, { address: tickerOrCa }],
+        [Op.or]: [{ symbol: { [Op.or]: [] } }, { address: tickerOrCa }],
       },
       order: [["mintedAt", "ASC"]],
     });
