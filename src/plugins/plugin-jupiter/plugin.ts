@@ -95,6 +95,12 @@ export class PluginJupiter extends PluginBase {
 
       const query = params.token;
       logger.info(`Searching for token info: ${query}`);
+      if (!query) {
+        return {
+          success: false,
+          error: "No token provided",
+        };
+      }
       const result = await this.service.getDexInfo(query);
       logger.info(JSON.stringify(result, null, 2));
       return {
