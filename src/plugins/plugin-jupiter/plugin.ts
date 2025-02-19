@@ -8,8 +8,13 @@ import { JupiterService } from "./jupiter.js";
 import {
   generateTokenInfoTemplate,
   generateAddressInfoTemplate,
+  generateTickerTemplate,
 } from "./template.js";
-import { JupiterTokenInfoSchema, JupiterAddressSchema } from "./types.js";
+import {
+  JupiterTokenInfoSchema,
+  JupiterAddressSchema,
+  TickerSchema,
+} from "./types.js";
 
 const logger = createLogger("plugin:jupiter");
 
@@ -25,7 +30,8 @@ export class PluginJupiter extends PluginBase {
   constructor(
     private config: JupiterPluginConfig = {
       token: "",
-      rpcUrl: "https://palpable-flashy-water.solana-mainnet.quiknode.pro/a24d45a88242df8cc4f32c8070df47b66e287c25",
+      rpcUrl:
+        "https://palpable-flashy-water.solana-mainnet.quiknode.pro/a24d45a88242df8cc4f32c8070df47b66e287c25",
     }
   ) {
     super({
@@ -36,58 +42,10 @@ export class PluginJupiter extends PluginBase {
     });
 
     this.service = new JupiterService({
-      rpcUrl: this.config.rpcUrl
+      rpcUrl:
+        this.config.rpcUrl ||
+        "https://palpable-flashy-water.solana-mainnet.quiknode.pro/a24d45a88242df8cc4f32c8070df47b66e287c25",
     });
-
-    // this.addExecutor({
-    //   name: "inject_agents_token",
-    //   description:
-    //     "This token was created by you the agent. This plugin must be run immediately after the character plugin every single time a pipeline is constructed no matter what. The purpose is to inform you about the current state of your own token.",
-    //   execute: async (): Promise<PluginResult> => {
-    //     const tokenInfo = await this.service.getTokenInfo(this.config.token);
-    //     logger.info(
-    //       `Token info for ${this.config.token}: ${JSON.stringify(tokenInfo)}`
-    //     );
-
-    //     return {
-    //       success: true,
-    //       data: {
-    //         token: tokenInfo,
-    //         helpfulInstruction: `This is the is current information about your token. Use this information to answer the user's question and to provide a reference if they request it.`,
-    //       },
-    //     };
-    //   },
-    // });
-
-    // this.addExecutor({
-    //   name: "search_token",
-    //   description: "Use this method to search for information about a token when requested by the user." +
-    //   "A contract address is 32-44 characters long and always uses the base58 character set" +
-    //   "This method will return relevant information about the token such as: Name, Token Symbol, Mint authority (can new supply be created), Freeze authority (can user accounts be froze).",
-
-    //   execute: async (context: AgentContext): Promise<PluginResult> => {
-
-    //     // @ts-ignore
-    //     const params = await this.runtime.operations.getObject(
-    //       JupiterTokenInfoSchema,
-    //       generateTokenInfoTemplate(context.contextChain),
-    //       { temperature: 0.2 }
-    //     );
-
-    //     const query = params.token;
-    //     logger.info(`Searching for token info: ${query}`);
-    //     const result = await this.service.getTokenInfo(query);
-
-    //     return {
-    //       success: true,
-    //       data: {
-    //         ...result,
-    //         helpfulInstruction:
-    //           "This is information about the token. It includes whether or not new supply can be created and whether or not user accounts can be frozen. It also includes the daily volume and metadata about the token.",
-    //       },
-    //     };
-    //   },
-    // });
 
     this.addExecutor({
       name: "search_token",
@@ -128,13 +86,12 @@ export class PluginJupiter extends PluginBase {
       },
     });
 
-
     this.addExecutor({
       name: "address_holdings",
       description:
         "Use this method to retrieve the holdings for a particular address" +
         "A address is 32-44 characters long and always uses the base58 character set" +
-        "This method will return the tokens held by the address and other account information" ,
+        "This method will return the tokens held by the address and other account information",
 
       execute: async (context: AgentContext): Promise<PluginResult> => {
         // @ts-ignore
@@ -159,8 +116,49 @@ export class PluginJupiter extends PluginBase {
           data: {
             token: result,
             helpfulInstruction:
-              "This method will return an array of all the the token accounts and balances held by the address. It will include the mint, amount, and owner."
-              + "When returning the result to the user ensure that the balance list is double spaced and easy to read. Do not outside of the token acount mint and amount.",
+              "This method will return an array of all the the token accounts and balances held by the address. It will include the mint, amount, and owner." +
+              "When returning the result to the user ensure that the balance list is double spaced and easy to read. Do not outside of the token acount mint and amount.",
+          },
+        };
+      },
+    });
+
+    this.addExecutor({
+      name: "ticker_to_contract",
+      description:
+        "Use this method to retrieve a contract address when supplied with a ticker or token symbol" +
+        "Tickers will start with a '$' but they may or may not be capitalized" +
+        "This method will return the contract address for the token." +
+        "This method can be used as an intermediary step to retrieve token information.",
+
+      execute: async (context: AgentContext): Promise<PluginResult> => {
+        // @ts-ignore
+        const params = await this.runtime.operations.getObject(
+          TickerSchema,
+          generateTickerTemplate(context.contextChain),
+          { temperature: 0.6 }
+        );
+
+        const query = params.ticker;
+        logger.info(`Searching token database: ${query}`);
+        if (!query) {
+          return {
+            success: false,
+            error: "No ticker provided",
+          };
+        }
+        const result = await this.service.getContractAddressByTicker(query);
+        logger.info(JSON.stringify(result, null, 2));
+        return {
+          success: true,
+          data: {
+            contract_address: result,
+            helpfulInstruction:
+              "This method will will return all the tokens with scores assigned to them" +
+              "You MUST ALWAYS return the token with the largest score" +
+              "You MAY prefer to return a token that has 'strict' in its tags list, followed by 'verified' followed by community" +
+              "If you are unsure return the full list of tokens and let the user decide." +
+              "You may choose to chain this method with the search_token method to retrieve token information.",
           },
         };
       },

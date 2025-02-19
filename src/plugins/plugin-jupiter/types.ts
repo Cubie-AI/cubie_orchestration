@@ -13,7 +13,6 @@ export interface JupiterToken {
   mint_authority: string;
 }
 
-
 interface BuySellCount {
   buys: number;
   sells: number;
@@ -27,10 +26,12 @@ export interface TimedMarkedData {
   volume: Record<TimedKeys, number>;
 }
 
-export interface DexScreenerInfo {
-  chainId: string;
-  dexId: string;
+interface BaseDexScreenerInfo {
   url: string;
+  chainId: string;
+}
+export interface DexScreenerInfo extends BaseDexScreenerInfo {
+  dexId: string;
   pairAddress: string;
   baseToken: {
     address: string;
@@ -54,17 +55,35 @@ export interface DexScreenerInfo {
   };
 }
 
+export interface DexScreenerBoostedTokens extends BaseDexScreenerInfo {
+  tokenAddress: string;
+  amount: number;
+  totalAmount: number;
+  icon: string;
+  header: string;
+  description: string;
+  links: {
+    type: string;
+    label: string;
+    url: string;
+  }[];
+}
+
 export interface AddressInformation {
   isNative: boolean;
   mint: string;
   owner: string;
   amount: number;
 }
-  
+
 export const JupiterTokenInfoSchema = z.object({
   token: z.string(),
 });
 
 export const JupiterAddressSchema = z.object({
   address: z.string(),
+});
+
+export const TickerSchema = z.object({
+  ticker: z.string(),
 });
