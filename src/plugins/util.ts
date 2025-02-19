@@ -24,6 +24,8 @@ function makeCharacter(agent: Agent): string {
     ***BIOGRAPHY***
     The biography describes the character's background, personality, and motivations. 
     Biography:
+    You are creator of the token ${agent.ticker} with the mint address ${agent.mint}.
+    Information about ${agent.mint} can be found at https://cubie.fun/agent/${agent.id}.
     ${agent.bio}
 
     ***STYLE***
@@ -64,7 +66,11 @@ export async function constructAgentPlugins(agent: Agent) {
     new PluginCharacter({
       character: makeCharacter(agent),
     }),
-    new PluginJupiter({ token: agent.mint }),
+    new PluginJupiter({
+      token: agent.mint,
+      rpcUrl:
+        "https://palpable-flashy-water.solana-mainnet.quiknode.pro/a24d45a88242df8cc4f32c8070df47b66e287c25",
+    }),
   ];
 
   if (agent.tw_email && agent.tw_password && agent.tw_handle) {

@@ -54,6 +54,17 @@ export interface DexScreenerInfo {
   };
 }
 
+export interface AddressInformation {
+  isNative: boolean;
+  mint: string;
+  owner: string;
+  amount: number;
+}
+  
 export const JupiterTokenInfoSchema = z.object({
   token: z.string(),
+});
+
+export const JupiterAddressSchema = z.object({
+  address: z.string(),
 });
