@@ -17,7 +17,7 @@
     "@maiar-ai/model-openai": "^0.4.0",
     "@maiar-ai/plugin-character": "^0.4.0",
     "@maiar-ai/plugin-express": "^0.4.0",
-    "@maiar-ai/plugin-telegram": "^0.4.0",
+    "@maiar-ai/plugin-telegram": "^0.7.0",
     "@maiar-ai/plugin-text": "^0.4.0",
     "@maiar-ai/plugin-x": "^0.7.0",
     "@solana/spl-token": "^0.4.12",

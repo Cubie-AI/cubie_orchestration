@@ -79,7 +79,6 @@ export async function startAgent(agentId: number) {
 
     await runtime.start().catch((error) => {
       console.error("Failed to start agent:", error);
-      throw error;
     });
 
     runningAgents.set(agentId.toString(), runtime);
