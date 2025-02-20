@@ -94,3 +94,8 @@ export const QuoteParamsSchema = z.object({
   direction: z.union([z.literal("ExactIn"), z.literal("ExactOut")]),
   amount: z.number(),
 });
+
+export const PriceParamSchema = z.object({
+  inputMint: z.string(),
+  vsMint: z.string(),
+});

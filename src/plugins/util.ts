@@ -7,6 +7,8 @@ import { Agent } from "../db/models.js";
 import { AgentInfo, AgentInfoType } from "../db/models/agentInfo.js";
 import { PluginXPost } from "../postTweetScheduler.js";
 import { PluginJupiter } from "./plugin-jupiter/plugin.js";
+import { PluginPump } from "./plugin-pump/plugin.js";
+import { Keypair } from "@solana/web3.js";
 
 function agentInfoToArray(
   type: AgentInfoType,
@@ -90,23 +92,28 @@ export async function constructAgentPlugins(agent: Agent) {
       rpcUrl:
         "https://palpable-flashy-water.solana-mainnet.quiknode.pro/a24d45a88242df8cc4f32c8070df47b66e287c25",
     }),
+
+    new PluginPump({
+      owner: Keypair.fromSecretKey(process.env.AGENT_PRIVATE_KEY || ""),
+      rpc: "https://palpable-flashy-water.solana-mainnet.quiknode.pro/a24d45a88242df8cc4f32c8070df47b66e287c25",
+    }),
   ];
 
-  if (agent.tw_email && agent.tw_password && agent.tw_handle) {
-    plugins.push(
-      new PluginXPost({
-        intervalMinutes: 10,
-        intervalRandomizationMinutes: 4,
-      }),
-      new PluginX({
-        email: agent.tw_email,
-        password: agent.tw_password,
-        username: agent.tw_handle,
-        mentionsCheckIntervalMins: 2,
-        loginRetries: 3,
-      })
-    );
-  }
+  // if (agent.tw_email && agent.tw_password && agent.tw_handle) {
+  //   plugins.push(
+  //     new PluginXPost({
+  //       intervalMinutes: 10,
+  //       intervalRandomizationMinutes: 4,
+  //     }),
+  //     new PluginX({
+  //       email: agent.tw_email,
+  //       password: agent.tw_password,
+  //       username: agent.tw_handle,
+  //       mentionsCheckIntervalMins: 2,
+  //       loginRetries: 3,
+  //     })
+  //   );
+  // }
 
   if (agent.telegram && agent.telegram_bot_token) {
     plugins.push(

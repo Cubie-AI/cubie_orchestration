@@ -3,6 +3,8 @@
   "exclude": ["node_modules", "dist", "logs"],
   "include": ["src/**/*"],
   "compilerOptions": {
+    "resolveJsonModule": true,
+    "rootDir": "./src",
     "skipLibCheck": true,
     "outDir": "./dist",
     "esModuleInterop": true

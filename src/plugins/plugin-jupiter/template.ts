@@ -97,3 +97,28 @@ export function generateQuoteTemplate(contextChain: BaseContextItem[]): string {
     }
     `;
 }
+
+export function generatePriceTemplate(contextChain: BaseContextItem[]): string {
+  return `
+    Generate a price template for the users request by extracting out a input mint address and an optional output mint address. Your response should be a JSON object with 2 fields, inputMint which is required, and vsMint which is optional.
+    The response should be related to the original message you received from the user. 
+
+    Do NOT include any metadata, context information, or explanation of how the response was generated.
+    The defaule vsMint is always EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v which is the mint address for USDC
+    You are looking for token contract address/mint addresses, if you are supplied a ticker you should use the ticker_to_contract to get the correct address.
+    A ticker is typically 2 to 10 characters long and starts with a "$" sign
+    A ticker is not always capitalized
+    The amount should be a number
+
+    Here is the Context Chain of the users initial message, and your internal operations which generated useful data for your response:
+    ${JSON.stringify(contextChain, null, 2)}
+
+    Return a JSON object with 2 fields, inputMint, vsMint.
+    
+    Example of valid response:
+    {
+        "inputMint": "So11111111111111111111111111111111111111112",
+        "vsMint": "2MH8ga3TuLvuvX2GUtVRS2BS8B9ujZo3bj5QeAkMpump",
+    }
+    `;
+}

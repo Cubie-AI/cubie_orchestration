@@ -59,12 +59,26 @@ export interface JupiterQuoteResponse {
   timeTaken: number;
 }
 
+interface PriceParams {
+  inputMint: string;
+  vsMint: string;
+}
 const jupiterTags = {
   strict: 5,
   verified: 4,
   community: 3,
   "birdeye-trending": 2,
   unknown: 0,
+};
+
+interface PriceData {
+  id: string;
+  type: string;
+  price: string;
+}
+
+type JupiterPriceResponse = {
+  data: Record<string, PriceData>;
 };
 
 interface QuoteParams {
@@ -152,6 +166,21 @@ export class JupiterService {
         : Number(quoteResponse.inAmount) / Math.pow(10, inputDecimals);
 
     return result;
+  }
+
+  async getPrice(params: PriceParams) {
+    const prices = (await (
+      await fetch(
+        `https://api.jup.ag/price/v2?ids=${params.inputMint}&vsToken=${params.vsMint}`
+      )
+    ).json()) as JupiterPriceResponse;
+
+    logger.info(JSON.stringify(prices, undefined, 2));
+    const price = Object.values(prices.data).filter(
+      (dataPrice) => dataPrice.id === params.inputMint
+    );
+
+    return price[0].price;
   }
 
   // async mostBoostedTokensOnSolana(): Promise<DexScreenerBoostedTokens[]> {

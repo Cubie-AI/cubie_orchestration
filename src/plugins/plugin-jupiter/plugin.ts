@@ -10,12 +10,14 @@ import {
   generateAddressInfoTemplate,
   generateTickerTemplate,
   generateQuoteTemplate,
+  generatePriceTemplate,
 } from "./template.js";
 import {
   JupiterTokenInfoSchema,
   JupiterAddressSchema,
   TickerSchema,
   QuoteParamsSchema,
+  PriceParamSchema,
 } from "./types.js";
 
 const logger = createLogger("plugin:jupiter");
@@ -50,6 +52,45 @@ export class PluginJupiter extends PluginBase {
     });
 
     this.addExecutor({
+      name: "get_price",
+      description:
+        "Use this method to get the price of an input mint address vs an output mint address",
+      execute: async (context: AgentContext): Promise<PluginResult> => {
+        // @ts-ignore
+        const params = await this.runtime.operations.getObject(
+          PriceParamSchema,
+          generatePriceTemplate(context.contextChain),
+          { temperature: 0.5 }
+        );
+        const {
+          inputMint,
+          vsMint = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        } = params;
+
+        logger.info(
+          `Got price params: ${JSON.stringify(params, undefined, 2)}`
+        );
+
+        if (!inputMint) {
+          return {
+            success: false,
+            error: "No input mint provided!",
+          };
+        }
+
+        const price = this.service.getPrice({ inputMint, vsMint });
+        return {
+          success: true,
+          data: {
+            price,
+            helpfulInstruction:
+              "This will return the price of a input mint vs an output mint. If not output mint is provided the price is per usd",
+          },
+        };
+      },
+    });
+
+    this.addExecutor({
       name: "search_token",
       description:
         "Use this method to search for information about a token when requested by the user." +
@@ -58,6 +99,7 @@ export class PluginJupiter extends PluginBase {
         "This method also returns the native price and the usd price of the token.",
 
       execute: async (context: AgentContext): Promise<PluginResult> => {
+        logger.info(JSON.stringify(context, undefined, 2));
         // @ts-ignore
         const params = await this.runtime.operations.getObject(
           JupiterTokenInfoSchema,
