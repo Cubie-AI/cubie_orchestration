@@ -3,7 +3,10 @@ import { JupiterToken, DexScreenerInfo, AddressInformation } from "./types.js";
 import { Connection, PublicKey, LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { TOKEN_PROGRAM_ID, NATIVE_MINT } from "@solana/spl-token";
 import { createLogger } from "@maiar-ai/core";
-import { getTokensByAddressOrTicker } from "../../db/repositories/token.js";
+import {
+  getTokensByAddressOrTicker,
+  getTokenDecimals,
+} from "../../db/repositories/token.js";
 
 const logger = createLogger("service:jupiter");
 
@@ -29,6 +32,33 @@ interface ScoredToken {
   score: number;
 }
 
+export interface JupiterQuoteResponse {
+  inputMint: string;
+  inAmount: string;
+  outputMint: string;
+  outAmount: string;
+  otherAmountThreshold: string;
+  swapMode: string;
+  slippageBps: number;
+  platformFee: number | null;
+  priceImpactPct: string;
+  routePlan: {
+    swapInfo: {
+      ammKey: string;
+      label: string;
+      inputMint: string;
+      outputMint: string;
+      inAmount: string;
+      outAmount: string;
+      feeAmount: string;
+      feeMint: string;
+    };
+    percent: number;
+  }[];
+  contextSlot: number;
+  timeTaken: number;
+}
+
 const jupiterTags = {
   strict: 5,
   verified: 4,
@@ -36,6 +66,13 @@ const jupiterTags = {
   "birdeye-trending": 2,
   unknown: 0,
 };
+
+interface QuoteParams {
+  inputMint: string;
+  outputMint: string;
+  direction: "ExactIn" | "ExactOut";
+  amount: number;
+}
 
 export class JupiterService {
   connection: Connection;
@@ -84,6 +121,37 @@ export class JupiterService {
   async getTokenInfo(token: string): Promise<JupiterToken> {
     const response = await fetch(`https://tokens.jup.ag/token/${token}`);
     return (await response.json()) as JupiterToken;
+  }
+
+  async getQuote(params: QuoteParams) {
+    const { inputMint, outputMint, amount, direction } = params;
+    const inputDecimals = await getTokenDecimals(inputMint);
+    const outputDecimals = await getTokenDecimals(outputMint);
+
+    const inAmount =
+      direction === "ExactIn"
+        ? Math.floor(amount * Math.pow(10, inputDecimals))
+        : Math.floor(amount * Math.pow(10, outputDecimals));
+
+    logger.info(
+      JSON.stringify(
+        { inputMint, outputMint, direction, inputDecimals, outputDecimals },
+        null,
+        2
+      )
+    );
+    const quoteResponse = (await (
+      await fetch(
+        `https://api.jup.ag/swap/v1/quote?inputMint=${inputMint}&outputMint=${outputMint}&amount=${inAmount}&swapMode=${direction}&slippageBps=150&restrictIntermediateTokens=true`
+      )
+    ).json()) as JupiterQuoteResponse;
+
+    const result =
+      direction === "ExactIn"
+        ? Number(quoteResponse.outAmount) / Math.pow(10, outputDecimals)
+        : Number(quoteResponse.inAmount) / Math.pow(10, inputDecimals);
+
+    return result;
   }
 
   // async mostBoostedTokensOnSolana(): Promise<DexScreenerBoostedTokens[]> {

@@ -9,11 +9,13 @@ import {
   generateTokenInfoTemplate,
   generateAddressInfoTemplate,
   generateTickerTemplate,
+  generateQuoteTemplate,
 } from "./template.js";
 import {
   JupiterTokenInfoSchema,
   JupiterAddressSchema,
   TickerSchema,
+  QuoteParamsSchema,
 } from "./types.js";
 
 const logger = createLogger("plugin:jupiter");
@@ -159,6 +161,42 @@ export class PluginJupiter extends PluginBase {
               "You MAY prefer to return a token that has 'strict' in its tags list, followed by 'verified' followed by community" +
               "If you are unsure return the full list of tokens and let the user decide." +
               "You may choose to chain this method with the search_token method to retrieve token information.",
+          },
+        };
+      },
+    });
+
+    this.addExecutor({
+      name: "get_quote",
+      description:
+        "Use get a quote between 2 tokens or tickers" +
+        "Tickers will start with a '$' but they may or may not be capitalized" +
+        "This method will return the output amount of the transaction." +
+        "This method requires contract addresses so you MAY need to chain up to 2 calls to the ticker_to_contract method to retrieve the contract address for the tokens",
+      execute: async (context: AgentContext): Promise<PluginResult> => {
+        // @ts-ignore
+        const params = await this.runtime.operations.getObject(
+          QuoteParamsSchema,
+          generateQuoteTemplate(context.contextChain),
+          { temperature: 0.4 }
+        );
+
+        logger.info(`Got quote params: ${JSON.stringify(params, null, 2)}`);
+        if (!params) {
+          return {
+            success: false,
+            error: "No input mint, output mint, amount or direction provided",
+          };
+        }
+        const result = await this.service.getQuote(params);
+        logger.info(JSON.stringify(result, null, 2));
+        return {
+          success: true,
+          data: {
+            outputAmount: result,
+            helpfulInstruction:
+              "This method returns the amount of outputMint tokens from the transaction" +
+              "You MAY need to chain this method with the ticker_to_contract method to retrieve the contract address for the tokens",
           },
         };
       },

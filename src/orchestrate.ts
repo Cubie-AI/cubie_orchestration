@@ -95,9 +95,16 @@ export async function agentLoader() {
   const running = Array.from(runningAgents.keys()).map((id) => parseInt(id));
   const newAgents = await Agent.findAll({
     where: {
-      id: {
-        [Op.notIn]: running,
-      },
+      [Op.and]: [
+        {
+          status: "active",
+        },
+        {
+          id: {
+            [Op.notIn]: running,
+          },
+        },
+      ],
     },
   });
 

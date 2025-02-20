@@ -87,3 +87,10 @@ export const JupiterAddressSchema = z.object({
 export const TickerSchema = z.object({
   ticker: z.string(),
 });
+
+export const QuoteParamsSchema = z.object({
+  inputMint: z.string(),
+  outputMint: z.string(),
+  direction: z.union([z.literal("ExactIn"), z.literal("ExactOut")]),
+  amount: z.number(),
+});

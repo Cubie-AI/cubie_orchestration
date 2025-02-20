@@ -17,3 +17,21 @@ export async function getTokensByAddressOrTicker(tickerOrCa: string) {
     throw new Error("Unable to get token details");
   }
 }
+
+export async function getTokenDecimals(address: string) {
+  let decimals = 0;
+  try {
+    const token = await Token.findOne({
+      where: {
+        address,
+      },
+    });
+
+    if (token) {
+      decimals = token.decimals;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+  return decimals || 0;
+}

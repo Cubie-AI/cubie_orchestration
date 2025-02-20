@@ -92,21 +92,21 @@ export async function constructAgentPlugins(agent: Agent) {
     }),
   ];
 
-  if (agent.tw_email && agent.tw_password && agent.tw_handle) {
-    plugins.push(
-      new PluginXPost({
-        intervalMinutes: 10,
-        intervalRandomizationMinutes: 4,
-      }),
-      new PluginX({
-        email: agent.tw_email,
-        password: agent.tw_password,
-        username: agent.tw_handle,
-        mentionsCheckIntervalMins: 2,
-        loginRetries: 3,
-      })
-    );
-  }
+  // if (agent.tw_email && agent.tw_password && agent.tw_handle) {
+  //   plugins.push(
+  //     new PluginXPost({
+  //       intervalMinutes: 10,
+  //       intervalRandomizationMinutes: 4,
+  //     }),
+  //     new PluginX({
+  //       email: agent.tw_email,
+  //       password: agent.tw_password,
+  //       username: agent.tw_handle,
+  //       mentionsCheckIntervalMins: 2,
+  //       loginRetries: 3,
+  //     })
+  //   );
+  // }
 
   if (agent.telegram && agent.telegram_bot_token) {
     plugins.push(
