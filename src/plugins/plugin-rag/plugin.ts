@@ -17,8 +17,8 @@ export class PluginRag extends PluginBase {
     this.addExecutor({
       name: "inject_current_information",
       description:
-        "Returns the up to date knowledge and information of this agent. Always execute inject_current_information immediately after the plugin-character",
-      execute: async (context: AgentContext) => {
+        "Returns the up-to date knowledge and information of this agent. Always execute inject_current_information immediately after the plugin-character",
+      execute: async () => {
         let result = { success: false, error: "An unexpected error occurred" };
         if (!this.config.api) {
           result.error = "No external api provided.";
@@ -48,7 +48,10 @@ export class PluginRag extends PluginBase {
           data: {
             data,
             helpfulInstruction:
-              "This returns up to data information that this agent know. It returns an additional knowledge base that is more modern than the knowledge from plugin-character." +
+              "This returns up to date information that this agent knows." +
+              "This information should and can be used before calling plugin-x." +
+              "Use this information to answer users queries or questions if it is related" +
+              "Use this information when generating content to post on X/Twitter" +
               "This information should be prioritized over the character information.",
           },
         };

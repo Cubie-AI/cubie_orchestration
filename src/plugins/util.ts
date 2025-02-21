@@ -8,8 +8,10 @@ import { AgentInfo, AgentInfoType } from "../db/models/agentInfo.js";
 import { PluginXPost } from "../postTweetScheduler.js";
 import { PluginJupiter } from "./plugin-jupiter/plugin.js";
 import { PluginPump } from "./plugin-pump/plugin.js";
-import { Keypair } from "@solana/web3.js";
+import { PluginRag } from "./plugin-rag/plugin.js";
 
+import { Keypair } from "@solana/web3.js";
+import bs58 from "bs58";
 function agentInfoToArray(
   type: AgentInfoType,
   agentInfo: AgentInfo[]
@@ -87,33 +89,26 @@ export async function constructAgentPlugins(agent: Agent) {
     new PluginCharacter({
       character: makeCharacter(agent),
     }),
-    new PluginJupiter({
-      token: agent.mint,
-      rpcUrl:
-        "https://palpable-flashy-water.solana-mainnet.quiknode.pro/a24d45a88242df8cc4f32c8070df47b66e287c25",
-    }),
-
-    new PluginPump({
-      owner: Keypair.fromSecretKey(process.env.AGENT_PRIVATE_KEY || ""),
-      rpc: "https://palpable-flashy-water.solana-mainnet.quiknode.pro/a24d45a88242df8cc4f32c8070df47b66e287c25",
+    new PluginRag({
+      api: agent.api,
     }),
   ];
 
-  // if (agent.tw_email && agent.tw_password && agent.tw_handle) {
-  //   plugins.push(
-  //     new PluginXPost({
-  //       intervalMinutes: 10,
-  //       intervalRandomizationMinutes: 4,
-  //     }),
-  //     new PluginX({
-  //       email: agent.tw_email,
-  //       password: agent.tw_password,
-  //       username: agent.tw_handle,
-  //       mentionsCheckIntervalMins: 2,
-  //       loginRetries: 3,
-  //     })
-  //   );
-  // }
+  if (agent.tw_email && agent.tw_password && agent.tw_handle) {
+    plugins.push(
+      new PluginXPost({
+        intervalMinutes: 10,
+        intervalRandomizationMinutes: 4,
+      }),
+      new PluginX({
+        email: agent.tw_email,
+        password: agent.tw_password,
+        username: agent.tw_handle,
+        mentionsCheckIntervalMins: 2,
+        loginRetries: 3,
+      })
+    );
+  }
 
   if (agent.telegram && agent.telegram_bot_token) {
     plugins.push(

@@ -1,12 +1,9 @@
 {
   "extends": "@tsconfig/node22/tsconfig.json",
-  "exclude": ["node_modules", "dist", "logs"],
+  "exclude": ["node_modules"],
   "include": ["src/**/*"],
   "compilerOptions": {
-    "resolveJsonModule": true,
-    "rootDir": "./src",
-    "skipLibCheck": true,
     "outDir": "./dist",
-    "esModuleInterop": true
+    "resolveJsonModule": true
   }
 }
