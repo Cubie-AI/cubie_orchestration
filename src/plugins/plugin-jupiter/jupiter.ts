@@ -1,12 +1,12 @@
-import fetch from "node-fetch";
-import { JupiterToken, DexScreenerInfo, AddressInformation } from "./types.js";
-import { Connection, PublicKey, LAMPORTS_PER_SOL } from "@solana/web3.js";
-import { TOKEN_PROGRAM_ID, NATIVE_MINT } from "@solana/spl-token";
 import { createLogger } from "@maiar-ai/core";
+import { NATIVE_MINT, TOKEN_PROGRAM_ID } from "@solana/spl-token";
+import { Connection, LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
+import fetch from "node-fetch";
 import {
-  getTokensByAddressOrTicker,
   getTokenDecimals,
+  getTokensByAddressOrTicker,
 } from "../../db/repositories/token.js";
+import { AddressInformation, DexScreenerInfo, JupiterToken } from "./types.js";
 
 const logger = createLogger("service:jupiter");
 
@@ -233,5 +233,14 @@ export class JupiterService {
     } catch (error) {
       console.error("Failed to get address holdings:", error);
     }
+  }
+
+  async getAccountType(address: string): Promise<string> {
+    const info = await this.connection.getParsedAccountInfo(
+      new PublicKey(address)
+    );
+    if (!info?.value?.data || info?.value?.data instanceof Buffer)
+      return "account";
+    return info.value.data.parsed.type;
   }
 }

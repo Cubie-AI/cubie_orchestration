@@ -129,9 +129,48 @@ export class PluginJupiter extends PluginBase {
     });
 
     this.addExecutor({
+      name: "is_contract",
+      description:
+        "Use this method to check the account type of an address. If an account it a mint then you should never return the balance or holding of that account" +
+        "A address is 32-44 characters long and always uses the base58 character set" +
+        "This method will return the tokens held by the address and other account information",
+
+      execute: async (context: AgentContext): Promise<PluginResult> => {
+        // @ts-ignore
+        const params = await this.runtime.operations.getObject(
+          JupiterAddressSchema,
+          generateAddressInfoTemplate(context.contextChain),
+          { temperature: 0.6 }
+        );
+
+        const query = params.address;
+        logger.info(`Searching address type: ${query}`);
+        if (!query) {
+          return {
+            success: false,
+            error: "No adress provided",
+          };
+        }
+        const result = await this.service.getAccountType(query);
+        logger.info(JSON.stringify(result, null, 2));
+        return {
+          success: true,
+          data: {
+            type: result,
+            helpfulInstruction:
+              "This method will return an array of all the the token accounts and balances held by the address. It will include the mint, amount, and owner." +
+              "When returning the result to the user ensure that the balance list is double spaced and easy to read. Do not outside of the token acount mint and amount.",
+          },
+        };
+      },
+    });
+
+    this.addExecutor({
       name: "address_holdings",
       description:
         "Use this method to retrieve the holdings for a particular address" +
+        "Do not use this method for token contract addresses. Instead use the search_token executor instead." +
+        "To check whether a address is a contract address invoke is_contract event" +
         "A address is 32-44 characters long and always uses the base58 character set" +
         "This method will return the tokens held by the address and other account information",
 
