@@ -11,6 +11,7 @@ export class Agent extends Model {
   declare owner: string;
   declare image_url: string;
   declare bio: string;
+  declare api: string;
   declare telegram: string;
   declare tw_password: string;
   declare tw_email: string;
@@ -53,6 +54,10 @@ Agent.init(
     bio: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    api: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     telegram: {
       type: DataTypes.STRING,
