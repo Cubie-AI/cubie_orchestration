@@ -183,19 +183,6 @@ export class JupiterService {
     return price[0].price;
   }
 
-  // async mostBoostedTokensOnSolana(): Promise<DexScreenerBoostedTokens[]> {
-  //   const response = await fetch(
-  //     "https://api.dexscreener.com/token-boosts/top/v1",
-  //     {
-  //       method: "GET",
-  //       headers: {},
-  //     }
-  //   );
-  //   const data = await response.json() as DexScreenerBoostedTokens[];
-
-  //   return data.filter((token) => token.chainId === "solana");
-  // }
-
   async getDexInfo(token: string): Promise<DexScreenerInfo[]> {
     logger.info(`Fetching dex info for token: ${token}`);
     const response = await fetch(

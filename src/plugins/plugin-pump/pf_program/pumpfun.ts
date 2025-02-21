@@ -1,5 +1,3 @@
-export { default as IDL } from "./pumpfun.json";
-
 export type PumpFun = {
   address: "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P";
   metadata: {

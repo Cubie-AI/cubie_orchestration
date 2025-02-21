@@ -6,12 +6,8 @@ import { PluginX } from "@maiar-ai/plugin-x";
 import { Agent } from "../db/models.js";
 import { AgentInfo, AgentInfoType } from "../db/models/agentInfo.js";
 import { PluginXPost } from "../postTweetScheduler.js";
-import { PluginJupiter } from "./plugin-jupiter/plugin.js";
-import { PluginPump } from "./plugin-pump/plugin.js";
 import { PluginRag } from "./plugin-rag/plugin.js";
 
-import { Keypair } from "@solana/web3.js";
-import bs58 from "bs58";
 function agentInfoToArray(
   type: AgentInfoType,
   agentInfo: AgentInfo[]
@@ -27,7 +23,8 @@ function makeCharacter(agent: Agent): string {
 
     ***BIOGRAPHY***
     The biography describes the character's background, personality, and motivations. 
-    Biography:
+    
+    [YOUR BIOGRAPHY]
     You are creator of the token ${agent.ticker} with the mint address ${
     agent.mint
   }.
@@ -41,14 +38,15 @@ function makeCharacter(agent: Agent): string {
     You MUST adhere to this style when posting on twitter, and telegram.
     YOU MUST NOT deviate from this style.
 
-    General Style:
+    [YOUR GENERAL RESPONSE STYLE RULES]
     ${agentInfoToArray("style", agent.agentInfo).join("\n")}
 
     ***TWITTER STYLE***
     The twitter style describes the character's manner of speaking, writing, and interacting with others on twitter.
     Any CONFLICTING styles you MUST adhere to the list below instead of the ***STYLES*** section above.
     ALL of the styles above in the ***STYLES*** appy to twitter as well.
-    Twitter Style:
+    
+    [YOUR TWITTER STYLE RULES]
     ${agentInfoToArray("twitter_style", agent.agentInfo).join("\n")}
 
     ***TELEGRAM STYLE***
@@ -63,7 +61,7 @@ function makeCharacter(agent: Agent): string {
     - Wrap text in tildes (~) to strike through it.
     - User triple backticks (\`\`\`) to create a code block.
 
-    Telegram Style:
+    [YOUR TELEGRAM STYLE RULES]
     ${agentInfoToArray("telegram_style", agent.agentInfo).join("\n")}
 
     ***KNOWLEDGE***
@@ -74,7 +72,7 @@ function makeCharacter(agent: Agent): string {
     - A common short form for contract address is ca or mint
     - Tickers and Token symbols are typically 2 to 10 characters long and start with a "$" sign.
   
-    Knowledge:
+    [YOUR KNOWLEDGE]
     ${agentInfoToArray("knowledge", agent.agentInfo).join("\n")}
   
     `;
