@@ -6,24 +6,23 @@ import {
 } from "@maiar-ai/core";
 import { JupiterService } from "./jupiter.js";
 import {
-  generateTokenInfoTemplate,
   generateAddressInfoTemplate,
-  generateTickerTemplate,
-  generateQuoteTemplate,
   generatePriceTemplate,
+  generateQuoteTemplate,
+  generateTickerTemplate,
+  generateTokenInfoTemplate,
 } from "./template.js";
 import {
-  JupiterTokenInfoSchema,
   JupiterAddressSchema,
-  TickerSchema,
-  QuoteParamsSchema,
+  JupiterTokenInfoSchema,
   PriceParamSchema,
+  QuoteParamsSchema,
+  TickerSchema,
 } from "./types.js";
 
 const logger = createLogger("plugin:jupiter");
 
 interface JupiterPluginConfig {
-  token: string;
   rpcUrl?: string;
   wsUrl?: string;
 }
@@ -33,7 +32,6 @@ export class PluginJupiter extends PluginBase {
 
   constructor(
     private config: JupiterPluginConfig = {
-      token: "",
       rpcUrl:
         "https://palpable-flashy-water.solana-mainnet.quiknode.pro/a24d45a88242df8cc4f32c8070df47b66e287c25",
     }
