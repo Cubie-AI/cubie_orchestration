@@ -27,8 +27,8 @@ export async function constructAgentPlugins(agent: Agent) {
   if (agent.tw_email && agent.tw_password && agent.tw_handle) {
     plugins.push(
       new PluginXPost({
-        intervalMinutes: 10,
-        intervalRandomizationMinutes: 4,
+        intervalMinutes: 30,
+        intervalRandomizationMinutes: 30,
       }),
       new PluginX({
         email: agent.tw_email,
