@@ -12,20 +12,20 @@ const logger = createLogger("plugin:helpers:composer");
 export function makeComposer(agent: Agent) {
   const composer = new Composer<TelegramContext>();
 
-  composer.command("link", async (ctx) => {
+  composer.command("link", async (ctx: TelegramContext) => {
     return await ctx.reply(
       `<a href='https://cubie.fun/agent/${agent.id}'>View my profile</a>`,
       { parse_mode: "HTML" }
     );
   });
 
-  composer.command("ca", async (ctx) => {
+  composer.command("ca", async (ctx: TelegramContext) => {
     return await ctx.reply(`<code>${agent.mint}</code>`, {
       parse_mode: "HTML",
     });
   });
 
-  composer.on("message", async (ctx) => {
+  composer.on("message", async (ctx: TelegramContext) => {
     try {
       if (!ctx.message || (ctx.message && !("text" in ctx.message))) return;
       if (!("plugin" in ctx)) return;
