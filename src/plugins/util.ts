@@ -20,15 +20,17 @@ export async function constructAgentPlugins(agent: Agent) {
     new PluginCharacter({
       character: makeCharacter(agent),
     }),
-    new PluginRag({
-      api: agent.api,
-    }),
+
     new PluginJupiter(),
     new PluginStripe({
       apiKey:
         "sk_test_51NvVb0FvEE1o5IkV0ThWMEnp7NT8p0ruTXLglsfXB38qPHIBJEBPcUHQCRLr3dSGH8kzBzNlQvpl9Cdws2OupMTX008W5lJafW",
     }),
   ];
+
+  if (agent.api) {
+    plugins.push(new PluginRag({ api: agent.api }));
+  }
 
   if (agent.tw_email && agent.tw_password && agent.tw_handle) {
     plugins.push(
