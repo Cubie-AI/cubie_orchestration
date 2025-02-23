@@ -29,9 +29,6 @@ importers:
       '@maiar-ai/plugin-text':
         specifier: ^0.9.0
         version: 0.9.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))
-      '@maiar-ai/plugin-x':
-        specifier: ^0.9.0
-        version: 0.9.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       '@solana/buffer-layout':
         specifier: ^4.0.1
         version: 4.0.1
@@ -44,6 +41,9 @@ importers:
       '@solana/web3.js':
         specifier: ^1.98.0
         version: 1.98.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+      agent-twitter-client:
+        specifier: ^0.0.18
+        version: 0.0.18(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       bn.js:
         specifier: ^5.2.1
         version: 5.2.1
@@ -128,9 +128,6 @@ packages:
 
   '@maiar-ai/plugin-text@0.9.0':
     resolution: {integrity: sha512-iPmalVBcR+LbRNdoCocJEp55zgWpuymRcBb842zG1oGrmvNB0h5ZnNQMKSWWgP7V7205UWW4Mq1CIs5OuyMP2A==}
-
-  '@maiar-ai/plugin-x@0.9.0':
-    resolution: {integrity: sha512-OdrzudjU5KIwLJ2MyavwEpa3d1CMXY3uOqg1I+Qa56zx0C5c5sN43N69XT8aMGtC88eU7qjBWMYcLlOBmGj/DQ==}
 
   '@noble/curves@1.8.1':
     resolution: {integrity: sha512-warwspo+UYUPep0Q+vtdVB4Ugn8GGQj8iyB3gnRWsztmUHTI3S1nhdiWNsPUGL0vud7JlRRk1XEu7Lq1KGTnMQ==}
@@ -1382,17 +1379,6 @@ snapshots:
       zod: 3.24.1
     transitivePeerDependencies:
       - encoding
-      - ws
-
-  '@maiar-ai/plugin-x@0.9.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))':
-    dependencies:
-      '@maiar-ai/core': 0.9.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))
-      agent-twitter-client: 0.0.18(bufferutil@4.0.9)(utf-8-validate@5.0.10)
-      zod: 3.24.1
-    transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - utf-8-validate
       - ws
 
   '@noble/curves@1.8.1':

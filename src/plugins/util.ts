@@ -2,7 +2,6 @@ import { Plugin } from "@maiar-ai/core";
 import { PluginCharacter } from "@maiar-ai/plugin-character";
 import { PluginTelegram } from "@maiar-ai/plugin-telegram";
 import { PluginTextGeneration } from "@maiar-ai/plugin-text";
-import { PluginX } from "@maiar-ai/plugin-x";
 import { Agent } from "../db/models.js";
 import { PluginXPost } from "../postTweetScheduler.js";
 import { makeCharacter } from "./helpers/character.js";
@@ -10,6 +9,7 @@ import { makeComposer } from "./helpers/telegram.js";
 import { PluginJupiter } from "./plugin-jupiter/plugin.js";
 import { PluginRag } from "./plugin-rag/plugin.js";
 import { PluginStripe } from "./plugin-stripe/plugin.js";
+import { PluginX } from "./plugin-x/plugin.js";
 
 export async function constructAgentPlugins(agent: Agent) {
   if (!agent) {
