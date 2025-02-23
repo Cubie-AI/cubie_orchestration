@@ -12,29 +12,26 @@ importers:
         specifier: ^0.30.1
         version: 0.30.1(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       '@maiar-ai/core':
-        specifier: ^0.4.0
-        version: 0.4.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+        specifier: ^0.9.0
+        version: 0.9.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       '@maiar-ai/memory-sqlite':
-        specifier: ^0.4.0
-        version: 0.4.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+        specifier: ^0.9.0
+        version: 0.9.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       '@maiar-ai/model-openai':
-        specifier: ^0.4.0
-        version: 0.4.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.24.2)
+        specifier: ^0.9.0
+        version: 0.9.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.24.1)
       '@maiar-ai/plugin-character':
-        specifier: ^0.4.0
-        version: 0.4.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))
-      '@maiar-ai/plugin-express':
-        specifier: ^0.4.0
-        version: 0.4.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+        specifier: ^0.9.0
+        version: 0.9.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       '@maiar-ai/plugin-telegram':
-        specifier: ^0.7.0
-        version: 0.7.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+        specifier: ^0.9.0
+        version: 0.9.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       '@maiar-ai/plugin-text':
-        specifier: ^0.4.0
-        version: 0.4.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+        specifier: ^0.9.0
+        version: 0.9.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       '@maiar-ai/plugin-x':
-        specifier: ^0.7.0
-        version: 0.7.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+        specifier: ^0.9.0
+        version: 0.9.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       '@solana/buffer-layout':
         specifier: ^4.0.1
         version: 4.0.1
@@ -68,12 +65,15 @@ importers:
       sequelize:
         specifier: ^6.37.5
         version: 6.37.5(mariadb@3.4.0)
+      stripe:
+        specifier: ^17.6.0
+        version: 17.6.0
       telegraf:
         specifier: ^4.16.3
         version: 4.16.3
       zod:
-        specifier: ^3.24.2
-        version: 3.24.2
+        specifier: 3.24.1
+        version: 3.24.1
     devDependencies:
       '@tsconfig/node22':
         specifier: ^22.0.0
@@ -111,32 +111,26 @@ packages:
     peerDependencies:
       '@solana/web3.js': ^1.68.0
 
-  '@maiar-ai/core@0.4.0':
-    resolution: {integrity: sha512-IO2pQgxHE0vmeKnoWkvtmgQvIB4c7NnmsgfeN2gW7nTOyN5coLheiV3kwNTvyKQELozl63XZ/x4zPKa0qLmr+g==}
+  '@maiar-ai/core@0.9.0':
+    resolution: {integrity: sha512-kRwj6IPmx/yRd0gaW0S29eUw6+WOANS9pI7/LH8m711B4U3G+/3M23wssilpn33nsfYCpdakqVybkXFEAd3UZw==}
 
-  '@maiar-ai/core@0.7.0':
-    resolution: {integrity: sha512-u7MIv4KMy3yNzSPx0VqhcrQWNo2XeAhHNnfsNTKURmQ5fzHOg2xJ8a7+GVJnX9ZzvkX6jTBD8qlOtSYUkiBxBw==}
+  '@maiar-ai/memory-sqlite@0.9.0':
+    resolution: {integrity: sha512-38e1wUJF4OPjbg3Ms8u5s8lTiEoTd8laSfyMDVxiGAyIOJkLNzSFXcB+sNA+eEaD4RwhU6IX6NS0BwMaNQHJDA==}
 
-  '@maiar-ai/memory-sqlite@0.4.0':
-    resolution: {integrity: sha512-JUXfZUkBIxOo765sCiGvOa0Fy+caofqy/g+/Zw+Xv0kPL6vJN2LvY+Gr6kPtx837A/6GCQ67KNPDPw5T53F1yg==}
+  '@maiar-ai/model-openai@0.9.0':
+    resolution: {integrity: sha512-rg3/gBYq43gXe1wa09YghRdrSAifQ2SimmzresQHPX5pG0knmbeu37vDhmzGm8RxQ6OqITsBNWKwI+13XoUHaA==}
 
-  '@maiar-ai/model-openai@0.4.0':
-    resolution: {integrity: sha512-gHNil7hC6GYlOt0S3p8duzCLpQNjEGmCpuryvn9Kj5ibvEnBKiQRgvkYBAySktGPixTOmo+lbDvM6nms8MRQNg==}
+  '@maiar-ai/plugin-character@0.9.0':
+    resolution: {integrity: sha512-9kGqARz9EJh9Cszy8gLeSunV3QNWurtDsyHjqOULTjjQrXkuGAvS4sA9eHhpjqwrP0pEUnc+wqPFFQRIeH76cw==}
 
-  '@maiar-ai/plugin-character@0.4.0':
-    resolution: {integrity: sha512-PZB9Fa5ZC7PVdCZqCdx3EOQgVX9G7xO0NTcHGpi02LH1E6gz8t+5u2WqgbawqzC5WxJUkda2EWdfuUsmts6yDw==}
+  '@maiar-ai/plugin-telegram@0.9.0':
+    resolution: {integrity: sha512-JqHuf4CQGyVMt1ih5BYyphDk3+yeo10e8pnaaZPd77TQUNSU1bkk5oNrVF6Acl6Usugt7tRPb4ao6+LUfBYLJw==}
 
-  '@maiar-ai/plugin-express@0.4.0':
-    resolution: {integrity: sha512-6u8bpeLcW+ULiqWPu/dVGgrdSb/fcKmasbUexw5yUWox/YX1/OmT1SSDGRY5OenFYhwREUcqpDQFVrpXtuilKw==}
+  '@maiar-ai/plugin-text@0.9.0':
+    resolution: {integrity: sha512-iPmalVBcR+LbRNdoCocJEp55zgWpuymRcBb842zG1oGrmvNB0h5ZnNQMKSWWgP7V7205UWW4Mq1CIs5OuyMP2A==}
 
-  '@maiar-ai/plugin-telegram@0.7.0':
-    resolution: {integrity: sha512-K13UIC5auNj9vW56QsDF9S/UrJkm/9c7UESVNc1B/jusFYcdwTuC++6Yp7SS7+jUfAFE6TZ5NHP+YHVC+i2g1A==}
-
-  '@maiar-ai/plugin-text@0.4.0':
-    resolution: {integrity: sha512-ddu4n0NRHmkko8jtjbGWI92ibFSG4eSrHtm/ZGA0KeFrNZsStoPV3gzdzvOiwb8ZNGDHaMaug4nbVfBKIGPxiA==}
-
-  '@maiar-ai/plugin-x@0.7.0':
-    resolution: {integrity: sha512-fsvlPBZuwmBDX5b18STMl2r7bf1LaLm9xeE908eZIYlioPV6McQWA0Q70GbGjq66JXgMa/ORtIAN65BrR2jeGg==}
+  '@maiar-ai/plugin-x@0.9.0':
+    resolution: {integrity: sha512-OdrzudjU5KIwLJ2MyavwEpa3d1CMXY3uOqg1I+Qa56zx0C5c5sN43N69XT8aMGtC88eU7qjBWMYcLlOBmGj/DQ==}
 
   '@noble/curves@1.8.1':
     resolution: {integrity: sha512-warwspo+UYUPep0Q+vtdVB4Ugn8GGQj8iyB3gnRWsztmUHTI3S1nhdiWNsPUGL0vud7JlRRk1XEu7Lq1KGTnMQ==}
@@ -1138,6 +1132,10 @@ packages:
     resolution: {integrity: sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==}
     engines: {node: '>=8'}
 
+  stripe@17.6.0:
+    resolution: {integrity: sha512-+HB6+SManp0gSRB0dlPmXO+io18krlAe0uimXhhIkL/RG/VIRigkfoM3QDJPkqbuSW0XsA6uzsivNCJU1ELEDA==}
+    engines: {node: '>=12.*'}
+
   superstruct@0.15.5:
     resolution: {integrity: sha512-4AOeU+P5UuE/4nOUkmcQdW5y7i9ndt1cQd/3iUe+LTz3RxESf/W/5lg4B74HbDMMv8PHnPnGCQFH45kBcrQYoQ==}
 
@@ -1296,9 +1294,6 @@ packages:
   zod@3.24.1:
     resolution: {integrity: sha512-muH7gBL9sI1nciMZV67X5fTKKBLtwpZ5VBp1vsOQzj1MhrBZ4wlVCm3gedKZWLp0Oyel8sIGfeiz54Su+OVT+A==}
 
-  zod@3.24.2:
-    resolution: {integrity: sha512-lY7CDW43ECgW9u1TcT3IoXHflywfVqDYze4waEz812jR/bZ8FHDsl7pFQoSZTz5N+2NqRXs8GBwnAwo3ZNxqhQ==}
-
 snapshots:
 
   '@babel/runtime@7.26.9':
@@ -1335,7 +1330,7 @@ snapshots:
       bn.js: 5.2.1
       buffer-layout: 1.2.2
 
-  '@maiar-ai/core@0.4.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))':
+  '@maiar-ai/core@0.9.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))':
     dependencies:
       openai: 4.82.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.24.1)
       pino: 9.6.0
@@ -1346,55 +1341,34 @@ snapshots:
       - encoding
       - ws
 
-  '@maiar-ai/core@0.7.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))':
+  '@maiar-ai/memory-sqlite@0.9.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))':
     dependencies:
-      openai: 4.82.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.24.1)
-      pino: 9.6.0
-      pino-pretty: 13.0.0
-      rxjs: 7.8.1
-      zod: 3.24.1
-    transitivePeerDependencies:
-      - encoding
-      - ws
-
-  '@maiar-ai/memory-sqlite@0.4.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))':
-    dependencies:
-      '@maiar-ai/core': 0.4.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+      '@maiar-ai/core': 0.9.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       better-sqlite3: 11.8.1
     transitivePeerDependencies:
       - encoding
       - ws
 
-  '@maiar-ai/model-openai@0.4.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.24.2)':
+  '@maiar-ai/model-openai@0.9.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.24.1)':
     dependencies:
-      '@maiar-ai/core': 0.4.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))
-      openai: 4.82.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.24.2)
+      '@maiar-ai/core': 0.9.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+      openai: 4.82.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.24.1)
     transitivePeerDependencies:
       - encoding
       - ws
       - zod
 
-  '@maiar-ai/plugin-character@0.4.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))':
+  '@maiar-ai/plugin-character@0.9.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))':
     dependencies:
-      '@maiar-ai/core': 0.4.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+      '@maiar-ai/core': 0.9.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       zod: 3.24.1
     transitivePeerDependencies:
       - encoding
       - ws
 
-  '@maiar-ai/plugin-express@0.4.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))':
+  '@maiar-ai/plugin-telegram@0.9.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))':
     dependencies:
-      '@maiar-ai/core': 0.4.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))
-      express: 4.21.2
-      zod: 3.24.1
-    transitivePeerDependencies:
-      - encoding
-      - supports-color
-      - ws
-
-  '@maiar-ai/plugin-telegram@0.7.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))':
-    dependencies:
-      '@maiar-ai/core': 0.7.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+      '@maiar-ai/core': 0.9.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       telegraf: 4.16.3
       zod: 3.24.1
     transitivePeerDependencies:
@@ -1402,17 +1376,17 @@ snapshots:
       - supports-color
       - ws
 
-  '@maiar-ai/plugin-text@0.4.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))':
+  '@maiar-ai/plugin-text@0.9.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))':
     dependencies:
-      '@maiar-ai/core': 0.4.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+      '@maiar-ai/core': 0.9.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       zod: 3.24.1
     transitivePeerDependencies:
       - encoding
       - ws
 
-  '@maiar-ai/plugin-x@0.7.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))':
+  '@maiar-ai/plugin-x@0.9.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))':
     dependencies:
-      '@maiar-ai/core': 0.7.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+      '@maiar-ai/core': 0.9.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       agent-twitter-client: 0.0.18(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       zod: 3.24.1
     transitivePeerDependencies:
@@ -2258,21 +2232,6 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  openai@4.82.0(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.24.2):
-    dependencies:
-      '@types/node': 18.19.76
-      '@types/node-fetch': 2.6.12
-      abort-controller: 3.0.0
-      agentkeepalive: 4.6.0
-      form-data-encoder: 1.7.2
-      formdata-node: 4.4.1
-      node-fetch: 2.7.0
-    optionalDependencies:
-      ws: 7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10)
-      zod: 3.24.2
-    transitivePeerDependencies:
-      - encoding
-
   otpauth@9.3.6:
     dependencies:
       '@noble/hashes': 1.6.1
@@ -2549,6 +2508,11 @@ snapshots:
 
   strip-json-comments@3.1.1: {}
 
+  stripe@17.6.0:
+    dependencies:
+      '@types/node': 22.13.4
+      qs: 6.13.0
+
   superstruct@0.15.5: {}
 
   superstruct@2.0.2: {}
@@ -2681,5 +2645,3 @@ snapshots:
       utf-8-validate: 5.0.10
 
   zod@3.24.1: {}
-
-  zod@3.24.2: {}

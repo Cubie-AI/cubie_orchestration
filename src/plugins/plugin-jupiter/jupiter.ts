@@ -97,7 +97,7 @@ export class JupiterService {
     });
   }
 
-  async getContractAddressByTicker(ticker: string): Promise<ScoredToken[]> {
+  async getContractAddressByTicker(ticker: string): Promise<ScoredToken> {
     logger.info(`Fetching contract address for ticker: ${ticker}`);
     const tokens = await getTokensByAddressOrTicker(ticker);
 
@@ -110,9 +110,10 @@ export class JupiterService {
     // Add daily volume to the score
     // take top 5 ->> sort by mintedAt ????
     const tokensScored: ScoredToken[] = tokens.map((token) => {
-      const score = token.tags.split(",").reduce((acc, tag) => {
+      const tagScore = token.tags.split(",").reduce((acc, tag) => {
         return acc + jupiterTags[tag as keyof typeof jupiterTags];
       }, 0);
+      const score = tagScore + (token.dailyVolume || 0);
       return {
         name: token.name,
         symbol: token.symbol,
@@ -124,12 +125,13 @@ export class JupiterService {
         decimals: token.decimals,
         logoURI: token.logoURI,
         tags: token.tags,
-        score: score + token.dailyVolume,
+        score: isFinite(score) ? score : 0,
       };
     });
 
-    logger.info(JSON.stringify(tokensScored, null, 2));
-    return tokensScored.slice(0, 5);
+    tokensScored.sort((a, b) => a.score - b.score);
+    logger.info(JSON.stringify(tokensScored, undefined, 2));
+    return tokensScored[-1];
   }
 
   async getTokenInfo(token: string): Promise<JupiterToken> {
@@ -239,8 +241,8 @@ export class JupiterService {
     const info = await this.connection.getParsedAccountInfo(
       new PublicKey(address)
     );
-    if (!info?.value?.data || info?.value?.data instanceof Buffer)
-      return "account";
-    return info.value.data.parsed.type;
+    if (info?.value?.data && "parsed" in info.value?.data)
+      return info.value.data.parsed;
+    return "account";
   }
 }

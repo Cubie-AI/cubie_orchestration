@@ -50,6 +50,45 @@ export class PluginJupiter extends PluginBase {
     });
 
     this.addExecutor({
+      name: "get_account_type",
+      description:
+        "Use this method to check the account type of an address. If an account it a mint then you should never return the balance or holding of that account" +
+        "A address is 32-44 characters long and always uses the base58 character set" +
+        "This method will return the tokens held by the address and other account information",
+
+      execute: async (context: AgentContext): Promise<PluginResult> => {
+        // @ts-ignore
+        const params = await this.runtime.operations.getObject(
+          JupiterAddressSchema,
+          generateAddressInfoTemplate(context.contextChain),
+          { temperature: 0.6 }
+        );
+
+        const query = params.address;
+        logger.info(`Searching address type: ${query}`);
+        if (!query) {
+          return {
+            success: false,
+            error: "No adress provided",
+          };
+        }
+        const result = await this.service.getAccountType(query);
+        logger.info(JSON.stringify(result, null, 2));
+        return {
+          success: true,
+          data: {
+            type: result,
+            helpfulInstruction:
+              "This method returns whether an account is a mint, program, or account." +
+              "If an account is a mint account then the only executor you should entirely avoid is address_holdings." +
+              "If the account has 'account' type then by defaut you should calll address_holdings" +
+              "For accounts with type 'program' you should not invoke any further methods.",
+          },
+        };
+      },
+    });
+
+    this.addExecutor({
       name: "get_price",
       description:
         "Use this method to get the price of an input mint address vs an output mint address",
@@ -83,6 +122,42 @@ export class PluginJupiter extends PluginBase {
             price,
             helpfulInstruction:
               "This will return the price of a input mint vs an output mint. If not output mint is provided the price is per usd",
+          },
+        };
+      },
+    });
+
+    this.addExecutor({
+      name: "get_quote",
+      description:
+        "Use get a quote between 2 tokens or tickers" +
+        "Tickers will start with a '$' but they may or may not be capitalized" +
+        "This method will return the output amount of the transaction." +
+        "This method requires contract addresses so you MAY need to chain up to 2 calls to the ticker_to_contract method to retrieve the contract address for the tokens",
+      execute: async (context: AgentContext): Promise<PluginResult> => {
+        // @ts-ignore
+        const params = await this.runtime.operations.getObject(
+          QuoteParamsSchema,
+          generateQuoteTemplate(context.contextChain),
+          { temperature: 0.4 }
+        );
+
+        logger.info(`Got quote params: ${JSON.stringify(params, null, 2)}`);
+        if (!params) {
+          return {
+            success: false,
+            error: "No input mint, output mint, amount or direction provided",
+          };
+        }
+        const result = await this.service.getQuote(params);
+        logger.info(JSON.stringify(result, null, 2));
+        return {
+          success: true,
+          data: {
+            outputAmount: result,
+            helpfulInstruction:
+              "This method returns the amount of outputMint tokens from the transaction" +
+              "You MAY need to chain this method with the ticker_to_contract method to retrieve the contract address for the tokens",
           },
         };
       },
@@ -129,48 +204,11 @@ export class PluginJupiter extends PluginBase {
     });
 
     this.addExecutor({
-      name: "is_contract",
-      description:
-        "Use this method to check the account type of an address. If an account it a mint then you should never return the balance or holding of that account" +
-        "A address is 32-44 characters long and always uses the base58 character set" +
-        "This method will return the tokens held by the address and other account information",
-
-      execute: async (context: AgentContext): Promise<PluginResult> => {
-        // @ts-ignore
-        const params = await this.runtime.operations.getObject(
-          JupiterAddressSchema,
-          generateAddressInfoTemplate(context.contextChain),
-          { temperature: 0.6 }
-        );
-
-        const query = params.address;
-        logger.info(`Searching address type: ${query}`);
-        if (!query) {
-          return {
-            success: false,
-            error: "No adress provided",
-          };
-        }
-        const result = await this.service.getAccountType(query);
-        logger.info(JSON.stringify(result, null, 2));
-        return {
-          success: true,
-          data: {
-            type: result,
-            helpfulInstruction:
-              "This method will return an array of all the the token accounts and balances held by the address. It will include the mint, amount, and owner." +
-              "When returning the result to the user ensure that the balance list is double spaced and easy to read. Do not outside of the token acount mint and amount.",
-          },
-        };
-      },
-    });
-
-    this.addExecutor({
       name: "address_holdings",
       description:
         "Use this method to retrieve the holdings for a particular address" +
         "Do not use this method for token contract addresses. Instead use the search_token executor instead." +
-        "To check whether a address is a contract address invoke is_contract event" +
+        "To check whether a address is a contract address invoke get_account_type event" +
         "A address is 32-44 characters long and always uses the base58 character set" +
         "This method will return the tokens held by the address and other account information",
 
@@ -240,42 +278,6 @@ export class PluginJupiter extends PluginBase {
               "You MAY prefer to return a token that has 'strict' in its tags list, followed by 'verified' followed by community" +
               "If you are unsure return the full list of tokens and let the user decide." +
               "You may choose to chain this method with the search_token method to retrieve token information.",
-          },
-        };
-      },
-    });
-
-    this.addExecutor({
-      name: "get_quote",
-      description:
-        "Use get a quote between 2 tokens or tickers" +
-        "Tickers will start with a '$' but they may or may not be capitalized" +
-        "This method will return the output amount of the transaction." +
-        "This method requires contract addresses so you MAY need to chain up to 2 calls to the ticker_to_contract method to retrieve the contract address for the tokens",
-      execute: async (context: AgentContext): Promise<PluginResult> => {
-        // @ts-ignore
-        const params = await this.runtime.operations.getObject(
-          QuoteParamsSchema,
-          generateQuoteTemplate(context.contextChain),
-          { temperature: 0.4 }
-        );
-
-        logger.info(`Got quote params: ${JSON.stringify(params, null, 2)}`);
-        if (!params) {
-          return {
-            success: false,
-            error: "No input mint, output mint, amount or direction provided",
-          };
-        }
-        const result = await this.service.getQuote(params);
-        logger.info(JSON.stringify(result, null, 2));
-        return {
-          success: true,
-          data: {
-            outputAmount: result,
-            helpfulInstruction:
-              "This method returns the amount of outputMint tokens from the transaction" +
-              "You MAY need to chain this method with the ticker_to_contract method to retrieve the contract address for the tokens",
           },
         };
       },

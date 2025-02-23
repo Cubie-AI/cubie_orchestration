@@ -1,10 +1,12 @@
-import { Token } from "../models/token.js";
+import { createLogger } from "@maiar-ai/core";
 import { Op } from "sequelize";
+import { Token } from "../models/token.js";
 
+const logger = createLogger("db:repositories:token");
 export async function getTokensByAddressOrTicker(tickerOrCa: string) {
   try {
     const symbol = `^\\$${tickerOrCa.replace("$", "")}$`;
-    console.log(`Getting token details for ${symbol}`);
+    logger.info(`Getting token details for ${symbol}`);
 
     return await Token.findAll({
       where: {

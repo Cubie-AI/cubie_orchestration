@@ -6,8 +6,10 @@ import { PluginX } from "@maiar-ai/plugin-x";
 import { Agent } from "../db/models.js";
 import { PluginXPost } from "../postTweetScheduler.js";
 import { makeCharacter } from "./helpers/character.js";
+import { makeComposer } from "./helpers/telegram.js";
 import { PluginJupiter } from "./plugin-jupiter/plugin.js";
 import { PluginRag } from "./plugin-rag/plugin.js";
+import { PluginStripe } from "./plugin-stripe/plugin.js";
 
 export async function constructAgentPlugins(agent: Agent) {
   if (!agent) {
@@ -22,6 +24,10 @@ export async function constructAgentPlugins(agent: Agent) {
       api: agent.api,
     }),
     new PluginJupiter(),
+    new PluginStripe({
+      apiKey:
+        "sk_test_51NvVb0FvEE1o5IkV0ThWMEnp7NT8p0ruTXLglsfXB38qPHIBJEBPcUHQCRLr3dSGH8kzBzNlQvpl9Cdws2OupMTX008W5lJafW",
+    }),
   ];
 
   if (agent.tw_email && agent.tw_password && agent.tw_handle) {
@@ -44,6 +50,7 @@ export async function constructAgentPlugins(agent: Agent) {
     plugins.push(
       new PluginTelegram({
         token: agent.telegram_bot_token,
+        composer: makeComposer(agent),
       })
     );
   }
